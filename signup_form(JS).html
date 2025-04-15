@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="signup_form(JS).css">
+    <title>Signup and Login Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <!-- Full Container (contains form 1, content 1 div and form 2, content 2 div ) -->
+<div class="container">
+
+    <p class="signup_heading">Create Account !!</p> 
+
+
+    <!-- Container A (contains form 1 and content 1)-->
+    <div class="containerA">
+    
+        <!-- Form 1 Container -->
+        <div class="form1_container">
+            <form  id="signup_form" onsubmit="return(form_validation())">
+
+                <!--1) Full name -->
+                <label for="fname">Full Name</label> <br>
+                <input type="text" id="fname"><br> <br>  
+
+                <!--2) Phone Number -->
+                <label for="phn">Phone Number</label> <br>
+                <input type="text" id="phn"> <br> <br>
+
+                <!--3) Email -->
+                <label for="email">Email</label> <br>
+                <input type="text" id="email" > <br> <br>
+
+                <!--4) Password -->
+                <label for="password">Password</label> <br>
+                <input type="text" id="password"> <br> <br>
+
+                <!--5) Confirm Password -->
+                <label for="confirm_password">Confirm Password</label> <br>
+                <input type="text" id="confirm_password"> <br> <br>
+
+                <!-- 6) SignUp Button -->
+                <button id="signup_btn" type="submit">Signup</button>            
+            </form>
+        </div>
+
+
+        <!-- Content 1 Container -->
+        <div class="content1_container">
+            <!-- Go to Login page -->
+            <p class="c1">Already have an account?   <a href="#"  id="go_to_login">Login here</a></p>
+            <img src="Html_Pictures/signup page img.png" class="signup_page_img">
+        </div>
+    </div> <!-- End of Container A -->
+
+
+
+    <!-- 2) Login Form Details-->
+    <p class="login_heading"; style="display: none;">Existing Account !!</p> 
+
+    <div class="containerB" style="display: none;">
+
+        <!-- Content 2 Container -->
+        <div class="content2_container">
+            <!-- Back to signup page -->
+             <img src="Html_Pictures/login page img.png" class="login_page_img">
+
+        </div>
+
+        <!-- Form 2 Container -->
+        <div class="form2_container">
+            <form id="login_form" onsubmit="return(l_form_validation())">
+                <!--1) Email -->
+                <label for="l_email">Email</label> <br>
+                <input type="text" id="l_email"> <br> <br>
+    
+                <!--2) Password -->
+                <label for="l_password">Password</label> <br>
+                <input type="text" id="l_password"> <br> <br>
+    
+                <!-- 3) Login Button -->
+                <button id="login_btn" type="submit">Login</button>
+
+                <!-- Back to sign up page -->
+                <p class="c2">Back to signup page?  <a  href="#" id="back_to_signup"> Go Back</a></p> 
+            </form>
+        </div>
+    </div> <!-- End of Container B  -->
+
+</div> <!-- End of full container -->
+
+
+<!-- Javascript Code - Sign up Form Validation -->
+<script>
+    function form_validation(){
+        user_fname = document.getElementById("fname").value;
+        user_phone = document.getElementById("phn").value;
+        user_email = document.getElementById("email").value;
+        user_password = document.getElementById("password").value;
+        user_confirm_password = document.getElementById("confirm_password").value;
+
+        // 1) Full name
+        if(user_fname == ""){
+            alert("Please provide your full name !!!!");
+            document.getElementById("fname").focus();
+            return false;    
+        }
+
+        // 2) Phone number
+        phonePattern = /^[0-9]{10}$/;
+        if(user_phone == "" || !phonePattern.test(user_phone)){
+            alert("Phone number must be exactly 10 digits !!!");
+            document.getElementById("phn").focus();
+            return false;    
+        }
+
+         // 3) Email
+         emailPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@])[a-zA-Z\d@.]+$/;
+         if(user_email == "" || !emailPattern.test(user_email)){
+            alert("Please provide your email !!!!");
+            document.getElementById("email").focus();
+            return false;    
+        }
+
+        // 4) Password
+        passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8}$/;
+        if(user_password == "" || !passwordPattern.test(user_password)){
+            alert("Password must be exactly 8 characters long.\nIt must contain at least one letter.\nIt must contain at least one number.\nIt must contain at least one special character.");
+            document.getElementById("password").focus();
+            return false;    
+        }
+
+        // 5) Confirm password
+        if(user_confirm_password == "" || user_password != user_confirm_password){
+            alert(" Password mismatch !! Please enter correct password !!!!");
+            document.getElementById("confirm_password").focus();
+            return false;    
+        }
+    return(true);
+        
+    }
+ </script>
+
+
+<!-- Javascript Code - Login Form Validation -->
+
+<script>
+    function l_form_validation(){
+        user_l_email = document.getElementById("l_email").value;
+        user_l_password = document.getElementById("l_password").value;
+    
+
+         // 1) Email
+         emailPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@])[a-zA-Z\d@.]+$/;
+         if(user_l_email == "" || !emailPattern.test(user_l_email)){
+            alert("Please provide your email !!!!");
+            document.getElementById("l_email").focus();
+            return false;    
+        }
+
+        // 2) Password
+        passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8}$/;
+        if(user_l_password == "" ||  !passwordPattern.test(user_l_password)) {
+            alert("Password must be exactly 8 characters long.\nIt must contain at least one letter.\nIt must contain at least one number.\nIt must contain at least one special character.");
+            document.getElementById("l_password").focus();
+            return false;    
+        }
+    return(true);
+        
+    }
+</script>
+
+
+
+<!-- Jquery - Hiding and showing the pages -->
+<script>
+
+    // Go to Login Form , Hide the signup form
+    $(document).ready(function(){
+    $("#go_to_login").click(function(){
+        $(".containerA,.signup_heading").hide(); // Hide signup
+        $(".containerB,.login_heading").slideDown(1000);
+        $(".containerB,.login_heading").show(); // Show login     
+    });
+
+
+    // Back to Signup form , hide the login form
+    $("#back_to_signup").click(function(){
+        $(".containerB, .login_heading").hide();
+        $(".containerA, .signup_heading").slideDown(1000);
+        $(".containerA, .signup_heading").show();
+    });
+});
+ </script>
+
+
+
+
+
+    
+</body>
+</html>
